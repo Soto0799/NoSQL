@@ -3,6 +3,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import estudiantesRoute from './routes/estudiantesRoute.js';
 import usuariosRoute from './routes/usuariosRoute.js';
+import adminsRoute from './routes/adminsRoute.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { config } from 'dotenv';
 import { validateToken, validateCredentials } from './middlewares/jwtHandler.js';
@@ -25,6 +26,8 @@ app.get('/', (request, response) => {
 app.post('/login', validateCredentials);
 
 app.use('/estudiantes', validateToken, estudiantesRoute);
+
+app.use('/admin', adminsRoute);
 
 //Se agregó esta ruta para manejar las funciones de la tabla usuarios
 app.use('/usuarios', usuariosRoute);
