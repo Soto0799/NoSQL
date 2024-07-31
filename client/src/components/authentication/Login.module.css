@@ -1,0 +1,110 @@
+.loginContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f7f7f7;
+}
+
+.loginBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    max-width: 400px;
+    width: 100%;
+}
+
+.loginTitle {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+    text-align: center;
+}
+
+.loginSubtitle {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: #666;
+    text-align: center;
+}
+
+.registerLink {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.registerLink:hover {
+    text-decoration: underline;
+}
+
+.loginLabel {
+    font-size: 1rem;
+    color: #333;
+    align-self: flex-start;
+    margin-bottom: 5px;
+}
+
+.loginInput {
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.forgotPassword {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    text-align: left;
+    align-self: flex-start;
+}
+
+.forgotPassword a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.forgotPassword a:hover {
+    text-decoration: underline;
+}
+
+.loginButton {
+    margin: 20px 0;
+    padding: 15px;
+    width: 100%;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.loginButton:hover {
+    background-color: #333;
+}
+
+.connectWith {
+    font-size: 0.9rem;
+    color: #666;
+    margin-top: 20px;
+    text-align: center;
+}
+
+:global(body) {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+:global(*) {
+    box-sizing: inherit;
+}
