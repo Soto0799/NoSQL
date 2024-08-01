@@ -27,7 +27,7 @@ app.post('/login', validateCredentials);
 app.use('/estudiantes', validateToken, estudiantesRoute);
 
 //Se agregó esta ruta para manejar las funciones de la tabla usuarios
-app.use('/usuarios', usuariosRoute);
+app.use('/register', usuariosRoute);
 
 app.use(errorHandler);
 
