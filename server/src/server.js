@@ -30,7 +30,7 @@ app.use('/estudiantes', validateToken, estudiantesRoute);
 app.use('/admin', adminsRoute);
 
 //Se agregó esta ruta para manejar las funciones de la tabla usuarios
-app.use('/usuarios', usuariosRoute);
+app.use('/register', usuariosRoute);
 
 app.use(errorHandler);
 
