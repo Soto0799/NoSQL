@@ -59,7 +59,7 @@ const usuarios = ({ ...props }): ReactNode => {
         };
 
         // Envia una solicitud POST al servidor para registrar al usuario
-        const response: Response = await fetch('http://127.0.0.1:3443/usuarios', {
+        const response: Response = await fetch('http://127.0.0.1:3443/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -135,7 +135,7 @@ const usuarios = ({ ...props }): ReactNode => {
                             <p style={{ color: 'red' }}>Las contraseñas no coinciden</p> // Mensaje de advertencia si las contraseñas no coinciden
                         )}
 
-                        <button type="button" onClick={onClickHandler}className={styles.registerButton}>
+                        <button type="button" onClick={onClickHandler} className={styles.registerButton}>
                             Register
                         </button>
                     </div>
