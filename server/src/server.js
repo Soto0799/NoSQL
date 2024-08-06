@@ -3,6 +3,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import estudiantesRoute from './routes/estudiantesRoute.js';
 import usuariosRoute from './routes/usuariosRoute.js';
+import placesRoute from './routes/placesRoute.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { config } from 'dotenv';
 import { validateToken, validateCredentials } from './middlewares/jwtHandler.js';
@@ -21,6 +22,8 @@ app.use(bodyParser.json());
 app.get('/', (request, response) => {
     response.send('Alive!');
 });
+
+app.use('/places', placesRoute);
 
 app.post('/login', validateCredentials);
 
