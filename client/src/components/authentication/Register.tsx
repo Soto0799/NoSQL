@@ -1,84 +1,84 @@
 import { ChangeEvent, ReactNode, useState, useRef, MouseEvent } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import styles from './Register.module.css';
 
-const usuarios = ({ ...props }): ReactNode => {
-    // Referencias para los campos del formulario
+const Usuarios = ({ ...props }): ReactNode => {
     const usernameRef = useRef<HTMLInputElement | null>(null);
     const emailRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
     const confirmPasswordRef = useRef<HTMLInputElement | null>(null);
 
-    // Estados para gestionar los valores de los campos y el estado de registro
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [isRegistered, setIsRegistered] = useState(false);
-    const [passwordsMatch, setPasswordsMatch] = useState(true); // Estado para verificar coincidencia de contraseñas
+    const [passwordsMatch, setPasswordsMatch] = useState(true);
 
-    // Función que maneja el cambio en el campo de nombre de usuario
     const onUsernameHandler = (e: ChangeEvent<HTMLInputElement>): void => {
-        const input: HTMLInputElement = e.target as HTMLInputElement; // Obtiene el campo de nombre de usuario del evento
-        setUsername(input.value); // Actualiza el estado con el valor del campo
+        const input: HTMLInputElement = e.target as HTMLInputElement;
+        setUsername(input.value);
     };
 
-    // Función que maneja el cambio en el campo de correo electrónico
     const onEmailHandler = (e: ChangeEvent<HTMLInputElement>): void => {
-        const input: HTMLInputElement = e.target as HTMLInputElement; // Obtiene el campo de correo electrónico del evento
-        setEmail(input.value); // Actualiza el estado con el valor del campo
+        const input: HTMLInputElement = e.target as HTMLInputElement;
+        setEmail(input.value);
     };
 
-    // Función que maneja el cambio en el campo de contraseña
     const onPasswordHandler = (e: ChangeEvent<HTMLInputElement>): void => {
-        const input: HTMLInputElement = e.target as HTMLInputElement; // Obtiene el campo de contraseña del evento
-        setPassword(input.value); // Actualiza el estado con el valor del campo
+        const input: HTMLInputElement = e.target as HTMLInputElement;
+        setPassword(input.value);
     };
 
-    // Función que maneja el cambio en el campo de confirmación de contraseña
     const onConfirmPasswordHandler = (e: ChangeEvent<HTMLInputElement>): void => {
-        const input: HTMLInputElement = e.target as HTMLInputElement; // Obtiene el campo de confirmación de contraseña del evento
-        setConfirmPassword(input.value); // Actualiza el estado con el valor del campo
+        const input: HTMLInputElement = e.target as HTMLInputElement;
+        setConfirmPassword(input.value);
     };
 
-    // Función que maneja el clic en el botón de registro
     const onClickHandler = async (e: MouseEvent): void => {
-        // Verifica si las contraseñas coinciden
-        if (password !== confirmPassword) {
-            setPasswordsMatch(false); // Establece el estado a falso si las contraseñas no coinciden
-            return; // Sale de la función si las contraseñas no coinciden
+        try {
+            if (password !== confirmPassword) {
+                setPasswordsMatch(false);
+                return;
+            }
+
+            setPasswordsMatch(true);
+
+            const credentials = {
+                username,
+                email,
+                password,
+                active: true
+            };
+
+            const response: Response = await fetch('http://127.0.0.1:3443/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(credentials)
+            });
+
+            if (!response.ok) {
+                console.log('Failed to register');
+                toast.error('Error: No se pudo registrar al usuario'); // Notificación de error
+                return;
+            }
+
+            const data = await response.json();
+            if (data.success === false) {
+                console.log(data.message);
+                toast.error(`Error: ${data.message}`); // Notificación de error con mensaje del servidor
+                return;
+            }
+
+            setIsRegistered(true);
+            toast.success('¡Usuario registrado correctamente!'); // Notificación de éxito
+        } catch (error) {
+            console.error('Unexpected error:', error);
+            toast.error('Error inesperado al registrar el usuario.');
         }
-
-        // Establece el estado a verdadero si las contraseñas coinciden
-        setPasswordsMatch(true);
-
-        const credentials = {
-            username,
-            email,
-            password,
-            active: true
-        };
-
-        // Envia una solicitud POST al servidor para registrar al usuario
-        const response: Response = await fetch('http://127.0.0.1:3443/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(credentials) // Envía las credenciales en el cuerpo de la solicitud
-        });
-
-        if (!response.ok) {
-            console.log('Failed to register'); // Mensaje de error si la solicitud falla
-            return;
-        }
-
-        const data = await response.json(); // Obtiene la respuesta JSON del servidor
-        if (!data.success) {
-            console.log(data.message); // Mensaje de error si la respuesta del servidor indica fallo
-            return;
-        }
-
-        setIsRegistered(true); // Establece el estado a verdadero si el registro es exitoso
     };
 
     return (
@@ -93,8 +93,8 @@ const usuarios = ({ ...props }): ReactNode => {
                             placeholder="User Name"
                             id="username"
                             name="username"
-                            ref={usernameRef} // Asigna la referencia al campo de nombre de usuario
-                            onChange={onUsernameHandler} // Maneja el cambio en el campo de nombre de usuario
+                            ref={usernameRef}
+                            onChange={onUsernameHandler}
                             required
                         />
 
@@ -104,8 +104,8 @@ const usuarios = ({ ...props }): ReactNode => {
                             placeholder="Email"
                             id="email"
                             name="email"
-                            ref={emailRef} // Asigna la referencia al campo de correo electrónico
-                            onChange={onEmailHandler} // Maneja el cambio en el campo de correo electrónico
+                            ref={emailRef}
+                            onChange={onEmailHandler}
                             required
                         />
 
@@ -115,8 +115,8 @@ const usuarios = ({ ...props }): ReactNode => {
                             placeholder="Password"
                             id="password"
                             name="password"
-                            ref={passwordRef} // Asigna la referencia al campo de contraseña
-                            onChange={onPasswordHandler} // Maneja el cambio en el campo de contraseña
+                            ref={passwordRef}
+                            onChange={onPasswordHandler}
                             required
                         />
 
@@ -126,13 +126,13 @@ const usuarios = ({ ...props }): ReactNode => {
                             placeholder="Confirm Password"
                             id="confirmPassword"
                             name="confirmPassword"
-                            ref={confirmPasswordRef} // Asigna la referencia al campo de confirmación de contraseña
-                            onChange={onConfirmPasswordHandler} // Maneja el cambio en el campo de confirmación de contraseña
+                            ref={confirmPasswordRef}
+                            onChange={onConfirmPasswordHandler}
                             required
                         />
 
                         {!passwordsMatch && (
-                            <p style={{ color: 'red' }}>Las contraseñas no coinciden</p> // Mensaje de advertencia si las contraseñas no coinciden
+                            <p style={{ color: 'red' }}>Las contraseñas no coinciden</p>
                         )}
 
                         <button type="button" onClick={onClickHandler} className={styles.registerButton}>
@@ -141,8 +141,19 @@ const usuarios = ({ ...props }): ReactNode => {
                     </div>
                 </div>
             )}
+            <ToastContainer 
+                position="top-right"
+                autoClose={3000} // Cierra automáticamente en 3 segundos
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         </>
     );
 };
 
-export default usuarios;
+export default Usuarios;

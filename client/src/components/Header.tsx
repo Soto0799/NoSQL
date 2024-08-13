@@ -79,11 +79,11 @@ function Header() {
             <div className={styles.overlay}>
                 <div className={styles.headerContent}>
                     <h1 className={styles.title}>Encuentra tu próximo viaje</h1>
-                    <p className={styles.subtitle}>Bienvenido al portal de gestión de estudiantes</p>
+                    <p className={styles.subtitle}>Bienvenido </p>
                     <div className={styles.buttonContainer}>
                         {token ? (
                             <>
-                                <button className={styles.button} onClick={onAddStudentHandler}>Añadir estudiante</button>
+                                <button className={styles.button} onClick={onAddStudentHandler}>Añadir destino</button>
                                 <Dialog title="Añadir estudiante" open={openAddStudentModal} onClose={onCloseAddStudentHandler}>
                                     <AddStudent />
                                 </Dialog>
