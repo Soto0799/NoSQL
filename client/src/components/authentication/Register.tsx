@@ -49,12 +49,8 @@ const Usuarios = ({ ...props }): ReactNode => {
                 username,
                 email,
                 password,
-<<<<<<< Updated upstream
-                active: true
-=======
                 active: true,
                 rol:'cliente'
->>>>>>> Stashed changes
             };
 
             const response: Response = await fetch('http://127.0.0.1:3443/register', {
@@ -80,10 +76,7 @@ const Usuarios = ({ ...props }): ReactNode => {
 
             setIsRegistered(true);
             toast.success('¡Usuario registrado correctamente!'); // Notificación de éxito
-<<<<<<< Updated upstream
-=======
             window.location.reload();
->>>>>>> Stashed changes
         } catch (error) {
             console.error('Unexpected error:', error);
             toast.error('Error inesperado al registrar el usuario.');
@@ -150,11 +143,7 @@ const Usuarios = ({ ...props }): ReactNode => {
                     </div>
                 </div>
             )}
-<<<<<<< Updated upstream
-            <ToastContainer 
-=======
             <ToastContainer
->>>>>>> Stashed changes
                 position="top-right"
                 autoClose={3000} // Cierra automáticamente en 3 segundos
                 hideProgressBar={false}

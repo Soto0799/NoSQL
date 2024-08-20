@@ -43,24 +43,10 @@ function Header() {
             <div className={styles.overlay}>
                 <div className={styles.headerContent}>
                     <h1 className={styles.title}>Encuentra tu próximo viaje</h1>
-<<<<<<< Updated upstream
-                    <p className={styles.subtitle}>Bienvenido </p>
-=======
                     <p className={styles.subtitle}>Bienvenido</p>
->>>>>>> Stashed changes
                     <div className={styles.buttonContainer}>
                         {isLoggedIn ? (
                             <>
-<<<<<<< Updated upstream
-                                <button className={styles.button} onClick={onAddStudentHandler}>Añadir destino</button>
-                                <Dialog title="Añadir estudiante" open={openAddStudentModal} onClose={onCloseAddStudentHandler}>
-                                    <AddStudent />
-                                </Dialog>
-                                <button className={styles.button} onClick={onLogoutHandler}>Cerrar sesión</button>
-                                <Dialog title="Cerrar sesión" open={openLogoutModal} onClose={onCloseLogoutHandler}>
-                                    <Logout />
-                                </Dialog>
-=======
 
                                 <button className={styles.button} onClick={handleLogout}>Cerrar sesión</button>
                                 {userRole !== 'cliente' && (
@@ -71,7 +57,6 @@ function Header() {
                                 )}
                                 <button  className={styles.button} ><Link to="/historial"  className={styles.button}>Historial</Link></button>                           
                                 <button className={styles.button}><Link to="/" className={styles.button}>Inicio</Link></button>
->>>>>>> Stashed changes
                             </>
                         ) : (
                             <>

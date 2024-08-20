@@ -7,11 +7,7 @@ import {setRol} from '../../util/storage';
 const Login = ({ onLogin, ...props }): ReactNode => {
     const password = useRef<HTMLInputElement | null>(null);
     const [username, setUsername] = useState("");
-<<<<<<< Updated upstream
-
-=======
    
->>>>>>> Stashed changes
     const onUsernameHandler = (e: ChangeEvent<HTMLInputElement>): void => {
         const input: HTMLInputElement = e.target as HTMLInputElement;
         setUsername(input.value);
@@ -62,10 +58,7 @@ const Login = ({ onLogin, ...props }): ReactNode => {
         if (!data.success) {
             console.log(data.message);
             toast.error(`Error: ${data.message}`); // Notificación de error con mensaje del servidor
-<<<<<<< Updated upstream
-=======
             window.location.reload();
->>>>>>> Stashed changes
             return;
         }
 
@@ -73,11 +66,8 @@ const Login = ({ onLogin, ...props }): ReactNode => {
         if (token) {
             onLogin(token);
             toast.success('¡Inicio de sesión exitoso!'); // Notificación de éxito
-<<<<<<< Updated upstream
-=======
             window.location.reload();
 
->>>>>>> Stashed changes
         }
     };
 
@@ -111,11 +101,7 @@ const Login = ({ onLogin, ...props }): ReactNode => {
                     </button>
                 </div>
             </div>
-<<<<<<< Updated upstream
-            <ToastContainer 
-=======
             <ToastContainer
->>>>>>> Stashed changes
                 position="top-right"
                 autoClose={3000} // Cierra automáticamente en 3 segundos
                 hideProgressBar={false}
