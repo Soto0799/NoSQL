@@ -38,3 +38,4 @@ export const removeUsuario = async (username) => {
     const result = await usuarios.deleteOne({ username: { $eq: username } });
     return result;
 }
+

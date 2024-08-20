@@ -70,14 +70,31 @@ const verifyToken = async (token) => {
 
 export const validateCredentials = async (request, response, next) => {
     try {
-        const username = request.body.username;
-        const password = request.body.password;
-        const token = await getToken(username, password);
-        response.status(StatusCodes.OK).json({ success: true, data: { token } });
+        const { username, password } = request.body;
+
+        // Obtener el usuario directamente de la base de datos
+        const usuario = await getUsuario(username, password);
+
+        // Si el usuario no existe, lanzamos un error
+        if (!usuario) {
+            const error = new Error('Authentication failed.');
+            error.StatusCode = StatusCodes.UNAUTHORIZED;
+            throw error;
+        }
+
+        // Generar el token con el usuario encontrado
+        const token = await getToken(username,password);
+
+        // Obtener el rol del usuario
+        const rol = usuario.rol;
+
+        // Devolver el token y el rol en la respuesta
+        response.status(StatusCodes.OK).json({ success: true, data: { token,rol } });
+
     } catch (error) {
         next(error);
     }
-}
+};
 
 export const validateToken = async (request, response, next) => {
     try {

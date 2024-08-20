@@ -2,30 +2,38 @@ import { collection } from './database.js';
 
 export const fetchPlaces = async () => {
     const places = await collection('places');
-    const results = places.find().toArray();
-    return results;
+    return places.find().toArray();
 }
 
 export const createPlace = async (place) => {
     const places = await collection('places');
-    const result = await places.insertOne(place);
-    return result;
+    return await places.insertOne(place);
 }
 
-export const fetchPlace = async (name = '') => {
+// Cambiado de name a id
+export const fetchPlace = async (id) => {
     const places = await collection('places');
-    const results = await places.findOne({ 'name': name });
-    return results;
+    return await places.findOne({ id });
 }
 
-export const updatePlace = async (name, place) => {
+// Cambiado de name a id
+export const updatePlace = async (id, place) => {
     const places = await collection('places');
-    const result = await places.updateOne({ 'name': name }, { $set: place});
-    return result;
+    return await places.updateOne({ id }, { $set: place });
 }
 
-export const removePlace = async (name) => {
+// Cambiado de name a id
+export const removePlace = async (id) => {
     const places = await collection('places');
-    const result = await places.deleteOne({ 'name': name });
-    return result;
+    return await places.deleteOne({ id });
 }
+
+
+export const fetchPlacesUpward = async () =>{
+
+    const places = await collection('places');
+    return await places.find().sort({seleccionCount:-1}).toArray();
+
+}
+
+

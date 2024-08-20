@@ -9,34 +9,37 @@ body {
   margin: 0;
   padding: 0;
   color: var(--third-color);
-  font-family: 'Montserrat';
+  font-family: 'Montserrat', sans-serif;
   font-size: 22px;
 }
 
 header {
   grid-area: header;
-  background-color: #5c5470;
+  background-color: var(--second-color);
   padding: 5px;
-  color: #dbd8e3;
+  color: var(--first-color);
 }
 
 footer {
   grid-area: footer;
-  background-color: #5c5470;
+  background-color: var(--second-color);
   padding: 5px;
-  color: #dbd8e3;
+  color: var(--first-color);
+  text-align: center;
 }
 
 main {
   grid-area: content;
-  background-color: #dbd8e3;
+  background-color: var(--first-color);
   padding: 5px;
+  flex: 1;
 }
 
 aside {
   grid-area: sidebar;
-  background-color: #dbd8e3;
-  padding: 5px;
+  background-color: var(--first-color);
+  padding: 20px;
+  width: 250px;
 }
 
 li {
@@ -46,24 +49,22 @@ li {
 }
 
 li:hover {
-  list-style-type: none;
-  margin-bottom: 10px;
-  background-color: #5c5470;
-  color: #dbd8e3;
+  background-color: var(--second-color);
+  color: var(--first-color);
 }
 
 button {
-  background-color: #2a2438;
-  color: #dbd8e3;
+  background-color: var(--fourth-color);
+  color: var(--first-color);
   padding: 10px;
   border: 0;
   border-radius: 5px;
-  border-color: #352f44;
+  border-color: var(--third-color);
 }
 
 button:hover {
-  background-color: #352f44;
-  border-color: #5c5470;
+  background-color: var(--third-color);
+  border-color: var(--second-color);
 }
 
 .wrapper {
@@ -74,11 +75,12 @@ button:hover {
     "header  header"
     "sidebar content"
     "footer  footer";
+  min-height: 100vh;
 }
 
 @media (max-width: 500px) {
   .wrapper {
-    grid-template-columns: 4fr;
+    grid-template-columns: 1fr;
     grid-template-areas:
       "header"
       "sidebar"

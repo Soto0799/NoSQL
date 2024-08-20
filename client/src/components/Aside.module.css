@@ -1,0 +1,7 @@
+.asideContainer {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-right: 1px solid #ddd;
+    height: 100%;
+    box-sizing: border-box;
+}

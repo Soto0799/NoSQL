@@ -1,9 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import estudiantesRoute from './routes/estudiantesRoute.js';
 import usuariosRoute from './routes/usuariosRoute.js';
-import adminsRoute from './routes/adminsRoute.js';
 import placesRoute from './routes/placesRoute.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { config } from 'dotenv';
@@ -24,15 +22,14 @@ app.get('/', (request, response) => {
     response.send('Alive!');
 });
 
-app.post('/login', validateCredentials);
+app.post('/login', validateCredentials, usuariosRoute);
 
-app.use('/estudiantes', validateToken, estudiantesRoute);
 
 app.use('/places', placesRoute);
 
 app.use('/usuarios', usuariosRoute);
 
-app.use('/admin', adminsRoute);
+
 
 //Se agregó esta ruta para manejar las funciones de la tabla usuarios
 app.use('/register', usuariosRoute);

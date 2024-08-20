@@ -1,54 +1,66 @@
 import express from 'express';
-import { getPlaces, postPlace, getPlace, putPlace, deletePlace } from '../controllers/placesController.js';
+import { getPlaces, postPlace, getPlace, putPlace, deletePlace,getPlacesUpdward } from '../controllers/placesController.js';
 
 const router = express.Router();
 
-router.get('/', async (request, response, next) => {
+router.get('/', async (req, res, next) => {
     try {
-        const results = await getPlaces();
-        if (results.length === 0) {
-            const error = new Error('No data found.');
-            error.statusCode = StatusCode.NOT_FOUND;;
-            next(error);
-        }
-        response.json(results);
+        const places = await getPlaces();
+        res.json(places);
     } catch (error) {
         next(error);
     }
 });
 
-router.post('/', async (request, response, next) => {
+router.post('/', async (req, res, next) => {
     try {
-        const json = request.body;
-        const result = await postPlace(json);
-        response.json(result);
+        const place = await postPlace(req.body);
+        res.json(place);
     } catch (error) {
         next(error);
     }
 });
 
-router.get('/:name', async (request, response, next) => {
-    const name = request.params.name;
-    const result = await getPlace(name);
-    response.json(result);
-});
 
-router.put('/:name', async (request, response, next) => {
+router.get('/upward', async (req, res, next) => {
+
+try{
+
+    const places = await getPlacesUpdward();
+    res.json(places);
+
+}catch(error){
+    next(error);
+
+}
+
+
+});
+// Cambiado de :name a :id
+router.get('/:id', async (req, res, next) => {
     try {
-        const name = request.params.name;
-        const json = request.body;
-        const result = await putPlace(name, json);
-        response.json(result);
+        const place = await getPlace(req.params.id);
+        res.json(place);
     } catch (error) {
         next(error);
     }
 });
 
-router.delete('/:name', async (request, response, next) => {
+// Cambiado de :name a :id
+router.put('/:id', async (req, res, next) => {
     try {
-        const name = request.params.name;
-        const result = await deletePlace(name);
-        response.json(result);
+        const place = await putPlace(req.params.id, req.body);
+        res.json(place);
+    } catch (error) {
+        next(error);
+    }
+});
+
+// Cambiado de :name a :id
+router.delete('/:id', async (req, res, next) => {
+    try {
+        const place = await deletePlace(req.params.id);
+        res.json(place);
     } catch (error) {
         next(error);
     }

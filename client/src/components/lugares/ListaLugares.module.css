@@ -1,0 +1,11 @@
+.listaLugares,
+.listaFavoritos {
+    display: flex;
+    flex-wrap: nowrap;
+    /* Asegura que los elementos estén en una sola fila */
+    gap: 20px;
+    /* Espacio entre los elementos */
+    overflow-x: auto;
+    /* Permite el desplazamiento horizontal si hay demasiados elementos */
+    padding: 10px 0;
+}

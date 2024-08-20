@@ -1,0 +1,56 @@
+.reportes{
+
+  display: flex;
+  flex-wrap: wrap;
+  /* Asegura que los elementos estén en una sola fila */
+  gap: 16px;
+  /* Espacio entre los elementos */
+
+ 
+ 
+
+}
+
+.tarjeta{
+
+  display:flex;
+
+  flex-wrap:wrap;
+
+  gap: 16px;
+
+  border: 1px solid lightgray;
+
+  box-shadow: 2px 2px 8px 4px #d3d3d3d1;
+
+  border-radius:15px;
+
+  font-family: sans-serif;
+
+}
+
+.titulo{
+
+  font-size: 24px;
+
+  padding: 10px 10px 0 10px;;
+
+}
+
+.cuerpo{
+
+  padding: 10px;
+
+ }
+
+.pie{
+
+  background: beige;
+
+  border-radius:0 0 15px 15px;
+
+  padding: 10px;
+
+  text-align:center;
+
+}

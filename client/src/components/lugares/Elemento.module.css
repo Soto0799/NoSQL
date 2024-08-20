@@ -1,0 +1,56 @@
+.listaLugares,
+.listaFavoritos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    /* Establece un tamaño mínimo fijo y permite que se rellene automáticamente */
+    gap: 20px;
+    padding: 20px;
+}
+
+.elemento {
+    width: 300px;
+    /* Establece un tamaño fijo para los elementos */
+    max-width: 100%;
+    /* Asegura que no se desborden */
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    /* Asegúrate de que el contenido esté alineado al inicio */
+    margin: 10px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #f7f7f7;
+}
+
+.elemento img {
+    width: 100%;
+    /* La imagen ocupa el 100% del ancho del contenedor */
+    height: 200px;
+    /* Establece un tamaño fijo para la altura de la imagen */
+    object-fit: cover;
+    /* Asegura que la imagen se recorte para llenar el área, manteniendo la proporción */
+    border-radius: 8px 8px 0 0;
+    /* Redondea las esquinas superiores de la imagen */
+}
+
+.elemento h3 {
+    margin: 10px 0;
+    font-size: 1.2em;
+    text-align: center;
+}
+
+.elemento p {
+    text-align: center;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.elemento.favorito {
+    box-shadow: 0 0 10px rgba(175, 166, 115, 0.8);
+    transform: scale(1.05);
+    /* Aumenta ligeramente el tamaño para resaltar */
+}

@@ -4,11 +4,13 @@ import { getUsuarios, postUsuario, getUsuario, putUsuario, deleteUsuario } from 
 const router = express.Router();
 
 router.get('/', async (request, response, next) => {
-    try {const results = await getUsuarios();
+    try {
+        const results = await getUsuarios();
         if (results.length === 0) {
             const error = new Error('No data found.');
             error.statusCode = StatusCode.NOT_FOUND;
-            next(error); }
+            next(error);
+        }
         response.json(results);
     } catch (error) {
         next(error);
@@ -44,6 +46,7 @@ router.delete('/:username', async (request, response) => {
     response.json(result);
 }
 );
+
 
 
 export default router;

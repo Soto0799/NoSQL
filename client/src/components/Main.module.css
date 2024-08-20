@@ -1,0 +1,8 @@
+.listaLugares,
+.listaFavoritos {
+    display: grid;
+    grid-template-columns: 1fr;
+    /* Un elemento por fila */
+    gap: 20px;
+    padding: 20px;
+}
