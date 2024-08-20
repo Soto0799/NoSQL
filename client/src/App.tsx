@@ -7,6 +7,7 @@ import { getToken, removeToken } from './util/storage';
 import styles from './App.module.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Reportes from './components/reportes/Reportes';
+import ReporteUsuarios from './components/reportes/ReportesUsuarios';
 
 
 
@@ -42,6 +43,8 @@ const App = () => {
                         
                         {/* Ruta para reportes, pero manteniendo el mismo layout */}
                         <Route path="/reportes" element={<Reportes />} />
+
+                        <Route path="/usuarios" element={<ReporteUsuarios />}/>
                     </Routes>
                 </main>
                 <Footer />

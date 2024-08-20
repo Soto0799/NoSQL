@@ -51,12 +51,20 @@ function Header() {
                                 <button className={styles.button} onClick={handleLogout}>Cerrar sesión</button>
                                 {userRole !== 'cliente' && (
 
-                                    <button  className={styles.button} ><Link to="/reportes"  className={styles.button}>Reportes</Link></button>
+                                    <button  className={styles.button} ><Link to="/reportes"  className={styles.button}>Reportes de Lugares</Link></button>
                                     
+
+                                )}
+
+                                {userRole !== 'cliente' && (
+
+                                    <button  className={styles.button} ><Link to="/usuarios"  className={styles.button}>Reporte de Usuarios</Link></button>
+
 
                                 )}
                                 <button  className={styles.button} ><Link to="/historial"  className={styles.button}>Historial</Link></button>                           
                                 <button className={styles.button}><Link to="/" className={styles.button}>Inicio</Link></button>
+                                
                             </>
                         ) : (
                             <>

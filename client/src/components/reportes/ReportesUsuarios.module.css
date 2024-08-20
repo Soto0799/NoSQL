@@ -1,0 +1,64 @@
+/* Contenedor principal */
+.list {
+  width: 80%;
+  margin: 20px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Título principal */
+.title {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+/* Contenedor de los usuarios */
+.userscontainer {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Estilo para cada usuario */
+.usercard {
+  background-color: #ecf0f1;
+  border: 1px solid #bdc3c7;
+  border-radius: 8px;
+  margin: 10px 0;
+  padding: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.usercard:hover {
+  background-color: #dcdde1;
+}
+
+/* Estilo para la información del usuario en una sola línea */
+.userinfo {
+  margin: 8px 0;
+}
+
+/* Estilos para los títulos e información del usuario en la misma línea */
+.infotitle {
+  font-weight: bold;
+  font-size: 16px;
+  color: #2c3e50;
+  display: inline;
+}
+
+.infovalue {
+  font-size: 16px;
+  color: #2980b9;
+  display: inline;
+  margin-left: 5px; /* Un pequeño margen para separar título e información */
+}
+
+/* Texto cuando no hay usuarios */
+.nousers {
+  text-align: center;
+  font-size: 18px;
+  color: #e74c3c;
+  padding: 20px;
+}
