@@ -11,6 +11,19 @@
 
 }
 
+.container{
+
+  text-align: center;
+  width: 80%;
+  margin: 20px auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+
+}
+
 .tarjeta{
 
   display:flex;
@@ -53,4 +66,12 @@
 
   text-align:center;
 
+}
+
+
+.noplaces {
+  text-align: center;
+  font-size: 18px;
+  color: #e74c3c;
+  padding: 20px;
 }

@@ -4,7 +4,7 @@ import Login from './authentication/Login';
 import Register from './authentication/Register';
 import Dialog from './common/Dialog';
 import styles from './Header.module.css';
-import {Link } from 'react-router-dom';
+import {Link ,useNavigate} from 'react-router-dom';
 
 
 function Header() {
@@ -13,6 +13,8 @@ function Header() {
    // const [openReportModal, setOpenReportModal] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userRole, setUserRole] = useState<string | null>(null);
+    const navigate = useNavigate();
+
 
     const handleLogin = (authToken: string) => {
         setToken(authToken);
@@ -28,8 +30,13 @@ function Header() {
             setIsLoggedIn(true);
             const rol = getRol();
             setUserRole(rol);
+        }else{
+
+            navigate('/');
+
         }
-    }, []);
+    
+    }, [navigate]);
 
     const handleLogout = () => {
         removeToken();
@@ -47,7 +54,6 @@ function Header() {
                     <div className={styles.buttonContainer}>
                         {isLoggedIn ? (
                             <>
-
                                 <button className={styles.button} onClick={handleLogout}>Cerrar sesión</button>
                                 {userRole !== 'cliente' && (
 

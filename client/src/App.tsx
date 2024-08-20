@@ -44,7 +44,7 @@ const App = () => {
                         {/* Ruta para reportes, pero manteniendo el mismo layout */}
                         <Route path="/reportes" element={<Reportes />} />
 
-                        <Route path="/usuarios" element={<ReporteUsuarios />}/>
+                        <Route path="/usuarios" element={<ReporteUsuarios/>} />
                     </Routes>
                 </main>
                 <Footer />
