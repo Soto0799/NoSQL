@@ -36,7 +36,7 @@ const Usuarios = ({ ...props }): ReactNode => {
         setConfirmPassword(input.value);
     };
 
-    const onClickHandler = async (e: MouseEvent): void => {
+    const onClickHandler = async (e: MouseEvent): Promise<void> => {
         try {
             if (password !== confirmPassword) {
                 setPasswordsMatch(false);

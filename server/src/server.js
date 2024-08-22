@@ -5,7 +5,7 @@ import usuariosRoute from './routes/usuariosRoute.js';
 import placesRoute from './routes/placesRoute.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { config } from 'dotenv';
-import { validateToken, validateCredentials } from './middlewares/jwtHandler.js';
+import { validateToken, validateCredentials, createPlace } from './middlewares/jwtHandler.js';
 
 config();
 
@@ -14,6 +14,8 @@ config();
 
 const PORT = process.env.PORT || 8080;
 const app = express();
+
+app.use(express.json()); 
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -24,6 +26,7 @@ app.get('/', (request, response) => {
 
 app.post('/login', validateCredentials, usuariosRoute);
 
+app.post('/places', createPlace, placesRoute );
 
 app.use('/places', placesRoute);
 

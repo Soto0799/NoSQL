@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { config } from 'dotenv';
 import { getUsuario } from '../controllers/usuariosController.js';
 import { postToken } from '../controllers/tokensController.js';
+import { getPlace } from '../controllers/placesController.js';	
 
 config();
 
@@ -107,3 +108,24 @@ export const validateToken = async (request, response, next) => {
     }
 }
 
+export const createPlace = async (request, response, next) => {
+    try {
+        const placeData = req.body;
+        const { id, nombre, distancia, esFavorito, lat, lon, seleccionCount, imagen } = placeData;
+
+
+        if (!id || !nombre || !distancia || !lat || !lon || !imagen) {
+            const error = new Error('All fields are required.');
+            error.status = StatusCodes.BAD_REQUEST;
+            throw error;
+        }
+        // Procesa placeData, por ejemplo, guarda en la base de datos
+        // Suponiendo que `createPlace` es una función que guarda el lugar
+        const result = await createPlace(placeData);
+        response.status(StatusCodes.OK).json({ success: true, data: { token } });
+
+        res.status(StatusCodes.CREATED).json({ success: true, data: result });
+    } catch (error) {
+        next(error);
+    }
+}
