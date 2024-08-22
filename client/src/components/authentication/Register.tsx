@@ -3,12 +3,15 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from './Register.module.css';
 
+// Define el componente funcional Usuarios que acepta props
 const Usuarios = ({ ...props }): ReactNode => {
+    //los campos de entrada del formulario
     const usernameRef = useRef<HTMLInputElement | null>(null);
     const emailRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
     const confirmPasswordRef = useRef<HTMLInputElement | null>(null);
 
+    // Define estados para manejar los datos del formulario y el estado de registro
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -16,30 +19,36 @@ const Usuarios = ({ ...props }): ReactNode => {
     const [isRegistered, setIsRegistered] = useState(false);
     const [passwordsMatch, setPasswordsMatch] = useState(true);
 
+     // Maneja el cambio en el campo de nombre de usuario
     const onUsernameHandler = (e: ChangeEvent<HTMLInputElement>): void => {
         const input: HTMLInputElement = e.target as HTMLInputElement;
         setUsername(input.value);
     };
 
+    // Maneja el cambio en el campo de correo electrónico
     const onEmailHandler = (e: ChangeEvent<HTMLInputElement>): void => {
         const input: HTMLInputElement = e.target as HTMLInputElement;
         setEmail(input.value);
     };
 
+    // Maneja el cambio en el campo de contraseña
     const onPasswordHandler = (e: ChangeEvent<HTMLInputElement>): void => {
         const input: HTMLInputElement = e.target as HTMLInputElement;
         setPassword(input.value);
     };
 
+    // Maneja el cambio en el campo de confirmación de contraseña
     const onConfirmPasswordHandler = (e: ChangeEvent<HTMLInputElement>): void => {
         const input: HTMLInputElement = e.target as HTMLInputElement;
         setConfirmPassword(input.value);
     };
 
+    // Maneja el clic en el botón de registro
     const onClickHandler = async (e: MouseEvent): void => {
         try {
+            // Verifica si las contraseñas coinciden
             if (password !== confirmPassword) {
-                setPasswordsMatch(false);
+                setPasswordsMatch(false); 
                 return;
             }
 
@@ -50,7 +59,7 @@ const Usuarios = ({ ...props }): ReactNode => {
                 email,
                 password,
                 active: true,
-                rol:'cliente'
+                rol:'cliente' // Define el rol del usuario
             };
 
             const response: Response = await fetch('http://127.0.0.1:3443/register', {
@@ -61,6 +70,7 @@ const Usuarios = ({ ...props }): ReactNode => {
                 body: JSON.stringify(credentials)
             });
 
+             // Si la respuesta no es exitosa, muestra un mensaje de error
             if (!response.ok) {
                 console.log('Failed to register');
                 toast.error('Error: No se pudo registrar al usuario'); // Notificación de error
@@ -74,6 +84,7 @@ const Usuarios = ({ ...props }): ReactNode => {
                 return;
             }
 
+            // Si el registro es exitoso, actualiza el estado y muestra una notificación de éxito
             setIsRegistered(true);
             toast.success('¡Usuario registrado correctamente!'); // Notificación de éxito
             window.location.reload();

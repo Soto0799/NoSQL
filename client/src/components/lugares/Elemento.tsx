@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './Elemento.module.css';
 
+// Define el componente funcional Elemento que acepta props: lugar, onFavoritoToggle e isLoggedIn
 const Elemento = ({ lugar, onFavoritoToggle, isLoggedIn }) => {
     return (
         <div

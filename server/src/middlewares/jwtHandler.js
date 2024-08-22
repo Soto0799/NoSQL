@@ -9,11 +9,12 @@ config();
 
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
+// Función para obtener un token JWT
 const getToken = async (username, password) => {
     if (!username || !password) {
         const error = new Error('Username and password are required.');
         error.StatusCode = StatusCodes.BAD_REQUEST;
-        throw error;
+        throw error;// Lanza un error si faltan username o password
     }
 
 
@@ -27,9 +28,13 @@ const getToken = async (username, password) => {
         throw error;
     }
 
+    // Genera un identificador único para el token
     const id = uuidv4();
 
+    // Establece la duración del token en horas
     const hours = 1;
+
+    // Crea un objeto de token con datos del usuario y fechas de creación y expiración
     const token = {
         id,
         username,
@@ -40,16 +45,19 @@ const getToken = async (username, password) => {
 
     console.log(token);//Prueba
 
+     // Guarda el token en la base de datos
     if (!await postToken(token)) {
         throw error;
 
     }
 
+    // Firma el token con JWT y lo configura para que expire en las horas especificadas
     const jwtToken = jwt.sign({ id }, JWT_SECRET_KEY,
         { expiresIn: hours.toString() + 'h' });
     return jwtToken;
 }
 
+// Función para verificar el token JWT
 const verifyToken = async (token) => {
     if (!token) {
         const error = new Error('Token is missing or not provided.');
@@ -67,7 +75,7 @@ const verifyToken = async (token) => {
         throw error;
     }
 }
-
+// Middleware para validar las credenciales del usuario
 export const validateCredentials = async (request, response, next) => {
     try {
         const { username, password } = request.body;

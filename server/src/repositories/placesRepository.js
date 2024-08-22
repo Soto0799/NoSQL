@@ -5,24 +5,25 @@ export const fetchPlaces = async () => {
     return places.find().toArray();
 }
 
+// Función para crear un nuevo lugar
 export const createPlace = async (place) => {
     const places = await collection('places');
     return await places.insertOne(place);
 }
 
-// Cambiado de name a id
+// Función para obtener un lugar por su id
 export const fetchPlace = async (id) => {
     const places = await collection('places');
     return await places.findOne({ id });
 }
 
-// Cambiado de name a id
+// Función para actualizar un lugar por su id
 export const updatePlace = async (id, place) => {
     const places = await collection('places');
     return await places.updateOne({ id }, { $set: place });
 }
 
-// Cambiado de name a id
+// Función para eliminar un lugar por su id
 export const removePlace = async (id) => {
     const places = await collection('places');
     return await places.deleteOne({ id });

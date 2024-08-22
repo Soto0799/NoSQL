@@ -4,15 +4,17 @@ import { fetchPlace } from '../repositories/placesRepository.js';
 
 import crypto from 'crypto-js';
 
-
+// Función para obtener todos los usuarios
 export const getUsuarios = async () => {
   return await fetchUsuarios();
 };
 
+// Función para obtener un usuario específico por nombre de usuario
 export const getUsuario = async (username) => {
   return await fetchUsuario(username);
 };
 
+// Función para eliminar un usuario
 export const deleteUsuario = async (usuario) => {
   if (!usuario) {
     throw new Error("username is required");

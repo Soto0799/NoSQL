@@ -11,9 +11,10 @@ interface MainProps {
 const userLocation = { lat: 19.432608, lon: -99.133209 }; // Ciudad de México, por ejemplo
 
 const Main: React.FC<MainProps> = ({ isLoggedIn }) => {
-    const [lugares, setLugares] = useState<any[]>([]);
-    const [favoritos, setFavoritos] = useState<any[]>([]);
+    const [lugares, setLugares] = useState<any[]>([]); // Estado para almacenar la lista de lugares
+    const [favoritos, setFavoritos] = useState<any[]>([]); // Estado para almacenar la lista de favoritos
 
+    // Efecto que se ejecuta cuando el estado de autenticación cambia
     useEffect(() => {
         const fetchLugares = async () => {
             try {
@@ -36,10 +37,11 @@ const Main: React.FC<MainProps> = ({ isLoggedIn }) => {
         };
 
         if (isLoggedIn) {
-            fetchLugares();
+            fetchLugares(); // Fetch solo si el usuario está autenticado
         }
     }, [isLoggedIn]);
 
+     // Función para calcular la distancia entre dos puntos geográficos
     const calcularDistancia = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
         const R = 6371; // Radio de la Tierra en kilómetros
         const dLat = (lat2 - lat1) * (Math.PI / 180);
@@ -57,6 +59,7 @@ const Main: React.FC<MainProps> = ({ isLoggedIn }) => {
         return lista.sort((a, b) => a.distancia - b.distancia);
     };
 
+        // Función para actualizar el contador de selecciones de un lugar en la base de datos
     const actualizarSeleccionCount = async (lugar) => {
         try {
             const response = await fetch(`http://127.0.0.1:3443/places/${lugar.id}`, {
@@ -79,15 +82,16 @@ const Main: React.FC<MainProps> = ({ isLoggedIn }) => {
         }
     };
 
+    // Función para alternar el estado de favorito de un lugar
     const onFavoritoToggle = async (id: string) => {
         setLugares((prevLugares) => {
             const lugarEnLugares = prevLugares.find(l => l.id === id);
             if (lugarEnLugares) {
                 lugarEnLugares.esFavorito = true;
                 lugarEnLugares.seleccionCount += 1;
-                actualizarSeleccionCount(lugarEnLugares); // Llamada sin await para no bloquear la UI
-                setFavoritos((prevFavoritos) => ordenarPorDistancia([...prevFavoritos, lugarEnLugares])); // Ordenar favoritos por distancia
-                return ordenarPorDistancia(prevLugares.filter(l => l.id !== id));  // Reordenar después de modificar la lista
+                actualizarSeleccionCount(lugarEnLugares); // Actualiza el contador de selecciones
+                setFavoritos((prevFavoritos) => ordenarPorDistancia([...prevFavoritos, lugarEnLugares])); // Actualiza la lista de favoritos
+                return ordenarPorDistancia(prevLugares.filter(l => l.id !== id)); // Reordenar la lista de lugares
             }
             return prevLugares;
         });

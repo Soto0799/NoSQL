@@ -3,6 +3,7 @@ import { getPlaces, postPlace, getPlace, putPlace, deletePlace,getPlacesUpdward 
 
 const router = express.Router();
 
+// Ruta GET para obtener todos los lugares
 router.get('/', async (req, res, next) => {
     try {
         const places = await getPlaces();
@@ -12,6 +13,7 @@ router.get('/', async (req, res, next) => {
     }
 });
 
+// Ruta POST para crear un nuevo lugar
 router.post('/', async (req, res, next) => {
     try {
         const place = await postPlace(req.body);
@@ -21,7 +23,7 @@ router.post('/', async (req, res, next) => {
     }
 });
 
-
+// Ruta GET para obtener todos los lugares ordenados por seleccionCount en orden descendente
 router.get('/upward', async (req, res, next) => {
 
 try{
@@ -36,7 +38,7 @@ try{
 
 
 });
-// Cambiado de :name a :id
+// Ruta GET para obtener un lugar específico por ID
 router.get('/:id', async (req, res, next) => {
     try {
         const place = await getPlace(req.params.id);
@@ -46,7 +48,7 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
-// Cambiado de :name a :id
+// Ruta PUT para actualizar un lugar específico por ID
 router.put('/:id', async (req, res, next) => {
     try {
         const place = await putPlace(req.params.id, req.body);
@@ -56,7 +58,7 @@ router.put('/:id', async (req, res, next) => {
     }
 });
 
-// Cambiado de :name a :id
+// Ruta DELETE para eliminar un lugar específico por ID
 router.delete('/:id', async (req, res, next) => {
     try {
         const place = await deletePlace(req.params.id);

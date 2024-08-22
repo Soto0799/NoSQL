@@ -4,15 +4,17 @@ import 'react-toastify/dist/ReactToastify.css';
 import styles from './Login.module.css';
 import {setRol} from '../../util/storage';
 
+// Define el componente funcional Login que acepta props y una función onLogin
 const Login = ({ onLogin, ...props }): ReactNode => {
     const password = useRef<HTMLInputElement | null>(null);
     const [username, setUsername] = useState("");
-   
+
+// Maneja el cambio en el campo de nombre de usuario   
     const onUsernameHandler = (e: ChangeEvent<HTMLInputElement>): void => {
         const input: HTMLInputElement = e.target as HTMLInputElement;
         setUsername(input.value);
     };
-
+// Maneja el clic en el botón de inicio de sesión
     const onClickHandler = async (e: MouseEvent): Promise<void> => {
         const passwordInput: HTMLInputElement =
             password.current as HTMLInputElement;
@@ -32,7 +34,7 @@ const Login = ({ onLogin, ...props }): ReactNode => {
         });
 
 
-
+// Si la respuesta no es exitosa, muestra un mensaje de error
         if (!response.ok) {
             console.log('Failed to login');
             toast.error('Error: No se pudo iniciar sesión'); // Notificación de error
@@ -54,14 +56,14 @@ const Login = ({ onLogin, ...props }): ReactNode => {
         setRol(userRol);
         
         
-
+ // Si la respuesta indica que no fue exitosa, muestra un mensaje de error
         if (!data.success) {
             console.log(data.message);
             toast.error(`Error: ${data.message}`); // Notificación de error con mensaje del servidor
             window.location.reload();
             return;
         }
-
+// Si hay un token en la respuesta, llama a la función onLogin y muestra una notificación de éxito
         const token = data.data.token;
         if (token) {
             onLogin(token);
