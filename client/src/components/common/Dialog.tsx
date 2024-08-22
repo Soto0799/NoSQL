@@ -24,7 +24,7 @@ const Dialog = ({ open, title, children, onClose }) => {
                 <button className={styles.closeButton} onClick={onClose}>×</button>
             </div>
             <div className={styles.dialogContent}>
-                {children} //Renderiza los hijos del componente
+                {children} 
             </div>
         </dialog>,
         document.getElementById("dialogs")  // El portal se renderiza en el elemento con id "dialogs" en el DOM
