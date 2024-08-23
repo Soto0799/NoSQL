@@ -7,7 +7,15 @@ export const fetchPlaces = async () => {
 
 export const createPlace = async (place) => {
     const places = await collection('places');
-    return await places.insertOne(place);
+    const result = await places.insertOne(place);
+
+    console.log('Insert result:', result); // Log para ver el resultado de la inserción
+
+    if (!result || !result.ops || result.ops.length === 0) {
+        throw new Error('Failed to insert place into database');
+    }
+
+    return result.ops[0];
 }
 
 // Cambiado de name a id

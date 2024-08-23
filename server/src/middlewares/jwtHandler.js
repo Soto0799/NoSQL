@@ -4,7 +4,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { config } from 'dotenv';
 import { getUsuario } from '../controllers/usuariosController.js';
 import { postToken } from '../controllers/tokensController.js';
-import { getPlace } from '../controllers/placesController.js';	
+import { createPlace as createPlaceInRepo } from '../repositories/placesRepository.js';
+
 
 config();
 
@@ -39,7 +40,9 @@ const getToken = async (username, password) => {
 
     };
 
-    console.log(token);//Prueba
+
+
+    console.log('Token data:', token);
 
     if (!await postToken(token)) {
         throw error;
@@ -107,25 +110,22 @@ export const validateToken = async (request, response, next) => {
         next(error);
     }
 }
-
+// Procesa placeData, por ejemplo, guarda en la base de datos
+// Suponiendo que `createPlace` es una función que guarda el lugar
 export const createPlace = async (request, response, next) => {
     try {
-        const placeData = req.body;
+        const placeData = request.body;
         const { id, nombre, distancia, esFavorito, lat, lon, seleccionCount, imagen } = placeData;
-
 
         if (!id || !nombre || !distancia || !lat || !lon || !imagen) {
             const error = new Error('All fields are required.');
             error.status = StatusCodes.BAD_REQUEST;
             throw error;
         }
-        // Procesa placeData, por ejemplo, guarda en la base de datos
-        // Suponiendo que `createPlace` es una función que guarda el lugar
-        const result = await createPlace(placeData);
-        response.status(StatusCodes.OK).json({ success: true, data: { token } });
 
-        res.status(StatusCodes.CREATED).json({ success: true, data: result });
+        const result = await createPlaceInRepo(placeData);
+        response.status(StatusCodes.CREATED).json({ success: true, message: 'Place created successfully', data: result });
     } catch (error) {
         next(error);
     }
-}
+};

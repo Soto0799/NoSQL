@@ -24,15 +24,17 @@ app.get('/', (request, response) => {
     response.send('Alive!');
 });
 
+// Ruta para el login
 app.post('/login', validateCredentials, usuariosRoute);
 
-app.post('/places', createPlace, placesRoute );
+// Ruta para crear un nuevo lugar (con middleware de autenticación)
+app.post('/places', createPlace);
 
+// Rutas para manejar otros métodos en /places
 app.use('/places', placesRoute);
 
+// Rutas para manejar usuarios
 app.use('/usuarios', usuariosRoute);
-
-
 
 //Se agregó esta ruta para manejar las funciones de la tabla usuarios
 app.use('/register', usuariosRoute);
