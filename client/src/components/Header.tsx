@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { getToken, setToken, removeToken ,getRol} from '../util/storage';
+import { useState, useEffect } from 'react';
+import { getToken, setToken, removeToken ,getRol} from './util/storage.tsx';
 import Login from './authentication/Login';
 import Register from './authentication/Register';
+import AddPlace from './lugares/AddPlace.tsx';
 import Dialog from './common/Dialog';
 import styles from './Header.module.css';
 import {Link ,useNavigate} from 'react-router-dom';
@@ -10,6 +11,7 @@ import {Link ,useNavigate} from 'react-router-dom';
 function Header() {
     const [isLoginOpened, setIsLoginOpened] = useState(false);
     const [openRegisterModal, setOpenRegisterModal] = useState(false);
+    const [openAddPlaceModal, setOpenAddPlaceModal] = useState(false); // Estado para añadir un lugar
    // const [openReportModal, setOpenReportModal] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userRole, setUserRole] = useState<string | null>(null);
@@ -44,6 +46,16 @@ function Header() {
         setUserRole(null);
     };
 
+    const onAddPlaceHandler = () => {
+        console.log('Abriendo modal para añadir destino');
+        setOpenAddPlaceModal(true); // Abrimos el modal para añadir lugar
+    };
+
+    const onCloseAddPlaceHandler = () => {
+        setOpenAddPlaceModal(false);
+    };
+
+
     return (
         
         <header className={styles.headerContainer}>
@@ -53,9 +65,11 @@ function Header() {
                     <p className={styles.subtitle}>Bienvenido</p>
                     <div className={styles.buttonContainer}>
                         {isLoggedIn ? (
-                            <>
+                            <>  
+
                                 <button className={styles.button} onClick={handleLogout}>Cerrar sesión</button>
                                 {userRole !== 'cliente' && (
+
 
                                     <button  className={styles.button} ><Link to="/reportes"  className={styles.button}>Reportes de Lugares</Link></button>
                                     
@@ -68,6 +82,10 @@ function Header() {
 
 
                                 )}
+                                <button className={styles.button} onClick={onAddPlaceHandler}>Añadir destino</button>
+                                <Dialog title="Añadir destino" open={openAddPlaceModal} onClose={onCloseAddPlaceHandler}>
+                                    <AddPlace/>
+                                </Dialog>
                                 <button  className={styles.button} ><Link to="/historial"  className={styles.button}>Historial</Link></button>                           
                                 <button className={styles.button}><Link to="/" className={styles.button}>Inicio</Link></button>
                                 

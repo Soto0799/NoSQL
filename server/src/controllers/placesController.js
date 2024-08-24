@@ -11,7 +11,7 @@ export const postPlace = async (place) => {
     if (existingPlace) throw new Error('El ID del lugar ya existe');
 
     return await createPlace(place);
-}
+};
 
 // Cambiado de name a id
 export const getPlace = async (id) => {

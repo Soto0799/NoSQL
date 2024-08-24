@@ -1,6 +1,4 @@
 import { StatusCodes } from 'http-status-codes';
-
-// Middleware para manejar errores en la aplicación
 export const errorHandler = (error, request, response, next) => {
     const statusCode = error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR;
 
