@@ -2,74 +2,70 @@ import { ChangeEvent, ReactNode, useState, useRef, MouseEvent } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from './Login.module.css';
-import {setRol} from '../../util/storage';
+import {setRol} from '../util/storage';
 
-// Define el componente funcional Login que acepta props y una función onLogin
 const Login = ({ onLogin, ...props }): ReactNode => {
     const password = useRef<HTMLInputElement | null>(null);
     const [username, setUsername] = useState("");
-
-// Maneja el cambio en el campo de nombre de usuario   
+   
     const onUsernameHandler = (e: ChangeEvent<HTMLInputElement>): void => {
         const input: HTMLInputElement = e.target as HTMLInputElement;
         setUsername(input.value);
     };
-// Maneja el clic en el botón de inicio de sesión
-    const onClickHandler = async (e: MouseEvent): Promise<void> => {
-        const passwordInput: HTMLInputElement =
-            password.current as HTMLInputElement;
-        const passwordValue: string = passwordInput.value;
 
+    const onClickHandler = async (e: MouseEvent): Promise<void> => {
+        const passwordInput: HTMLInputElement = password.current as HTMLInputElement;
+        const passwordValue: string = passwordInput.value;
+    
         const credentials = {
             username,
             password: passwordValue
         };
-
-        const response: Response = await fetch('http://127.0.0.1:3443/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(credentials)
-        });
-
-
-// Si la respuesta no es exitosa, muestra un mensaje de error
-        if (!response.ok) {
-            console.log('Failed to login');
-            toast.error('Error: No se pudo iniciar sesión'); // Notificación de error
-            return;
-        }else{
-
-            console.log(response);
-
-        }
-
-        const data = await response.json();
-
-        
-
-        //Agarro el user rol 
-        const userRol = data.data.rol;
-       
-        //lo mandamos a el storage
-        setRol(userRol);
-        
-        
- // Si la respuesta indica que no fue exitosa, muestra un mensaje de error
-        if (!data.success) {
-            console.log(data.message);
-            toast.error(`Error: ${data.message}`); // Notificación de error con mensaje del servidor
-            window.location.reload();
-            return;
-        }
-// Si hay un token en la respuesta, llama a la función onLogin y muestra una notificación de éxito
-        const token = data.data.token;
-        if (token) {
-            onLogin(token);
-            toast.success('¡Inicio de sesión exitoso!'); // Notificación de éxito
-            window.location.reload();
-
+    
+        try {
+            const response: Response = await fetch('http://127.0.0.1:3443/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(credentials)
+            });
+    
+            if (!response.ok) {
+                console.log('Failed to login');
+                toast.error('Error: No se pudo iniciar sesión'); // Notificación de error
+                return;
+            }
+    
+            const data = await response.json();
+    
+            // Agarro el user rol 
+            const userRol = data.data.rol;
+    
+            // Lo mandamos al storage
+            setRol(userRol);
+    
+            if (!data.success) {
+                console.log(data.message);
+                toast.error(`Error: ${data.message}`); // Notificación de error con mensaje del servidor
+                window.location.reload();
+                return;
+            }
+    
+            const token = data.data.token;
+            if (token) {
+                // Guarda el token en localStorage
+                localStorage.setItem('token', token);
+    
+                // Llama a la función onLogin con el token
+                onLogin(token);
+    
+                toast.success('¡Inicio de sesión exitoso!'); // Notificación de éxito
+                window.location.reload();
+            }
+        } catch (error) {
+            console.error('Error during login:', error);
+            toast.error('Error: Ocurrió un problema al intentar iniciar sesión');
         }
     };
 

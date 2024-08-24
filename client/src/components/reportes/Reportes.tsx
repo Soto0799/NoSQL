@@ -30,11 +30,11 @@ const Reportes: React.FC = () => {
     }, []); 
 
     return (
-        <div>
+        <div className={styles.container}>
             <h2>Top Click Places</h2>
             <div className={styles.tarjeta}>
                 {listaPlaces.length === 0 ? (
-                    <p>No hay lugares favoritos disponibles</p>
+                    <p className={styles.noplaces}>No hay lugares favoritos disponibles</p>
                 ) : (
                     listaPlaces.map((lugar) => (
                         <div key={lugar.id} style={{ width: '400px' }}>

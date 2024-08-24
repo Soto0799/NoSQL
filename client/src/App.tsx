@@ -3,11 +3,12 @@ import Header from './components/Header'
 import { Aside } from './components/Aside';
 import Main from './components/Main';
 import { Footer } from './components/Footer';
-import { getToken, removeToken } from './util/storage';
+import { getToken, removeToken } from './components/util/storage';
 import styles from './App.module.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Reportes from './components/reportes/Reportes';
 import ReporteUsuarios from './components/reportes/ReportesUsuarios';
+import Historial from './components/historial/Historial';
 
 
 
@@ -45,6 +46,9 @@ const App = () => {
                         <Route path="/reportes" element={<Reportes />} />
 
                         <Route path="/usuarios" element={<ReporteUsuarios/>} />
+
+                        <Route path="/historial" element={<Historial/>} />
+
                     </Routes>
                 </main>
                 <Footer />

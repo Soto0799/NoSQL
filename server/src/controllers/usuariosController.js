@@ -1,20 +1,19 @@
 
 import { fetchUsuarios, fetchUsuario, createUsuario, updateUsuario, removeUsuario } from "../repositories/usuariosRepository.js";
 import { fetchPlace } from '../repositories/placesRepository.js';
+import { fetchUserFavorites } from "../repositories/usuariosRepository.js";
 
 import crypto from 'crypto-js';
 
-// Función para obtener todos los usuarios
+
 export const getUsuarios = async () => {
   return await fetchUsuarios();
 };
 
-// Función para obtener un usuario específico por nombre de usuario
 export const getUsuario = async (username) => {
   return await fetchUsuario(username);
 };
 
-// Función para eliminar un usuario
 export const deleteUsuario = async (usuario) => {
   if (!usuario) {
     throw new Error("username is required");
@@ -58,6 +57,15 @@ export const putUsuario = async (username, usuario) => {
   const updatedUsuario = await updateUsuario(username, usuario);
   return updatedUsuario;
 };
+
+export const getUserFavorites = async (username) => {
+    if (!username) {
+        throw new Error("El username es requerido");
+    }
+    return await fetchUserFavorites(username);
+};
+
+
 
 
 

@@ -1,4 +1,4 @@
-import { removeToken ,removeRol} from '../../util/storage';
+import { removeToken ,removeRol} from '../util/storage';
 
 const Logout = () => {
 
