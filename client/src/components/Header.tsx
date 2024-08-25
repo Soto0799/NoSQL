@@ -1,18 +1,18 @@
 import { useState, useEffect } from 'react';
-import { getToken, setToken, removeToken ,getRol} from './util/storage.tsx';
+import { getToken, setToken, removeToken, getRol } from './util/storage.tsx';
 import Login from './authentication/Login';
 import Register from './authentication/Register';
 import AddPlace from './lugares/AddPlace.tsx';
 import Dialog from './common/Dialog';
 import styles from './Header.module.css';
-import {Link ,useNavigate} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 function Header() {
     const [isLoginOpened, setIsLoginOpened] = useState(false);
     const [openRegisterModal, setOpenRegisterModal] = useState(false);
     const [openAddPlaceModal, setOpenAddPlaceModal] = useState(false); // Estado para añadir un lugar
-   // const [openReportModal, setOpenReportModal] = useState(false);
+    // const [openReportModal, setOpenReportModal] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userRole, setUserRole] = useState<string | null>(null);
     const navigate = useNavigate();
@@ -32,12 +32,12 @@ function Header() {
             setIsLoggedIn(true);
             const rol = getRol();
             setUserRole(rol);
-        }else{
+        } else {
 
             navigate('/');
 
         }
-    
+
     }, [navigate]);
 
     const handleLogout = () => {
@@ -57,7 +57,7 @@ function Header() {
 
 
     return (
-        
+
         <header className={styles.headerContainer}>
             <div className={styles.overlay}>
                 <div className={styles.headerContent}>
@@ -65,30 +65,36 @@ function Header() {
                     <p className={styles.subtitle}>Bienvenido</p>
                     <div className={styles.buttonContainer}>
                         {isLoggedIn ? (
-                            <>  
+                            <>
 
                                 <button className={styles.button} onClick={handleLogout}>Cerrar sesión</button>
                                 {userRole !== 'cliente' && (
 
 
-                                    <button  className={styles.button} ><Link to="/reportes"  className={styles.button}>Reportes de Lugares</Link></button>
-                                    
+                                    <button className={styles.button} ><Link to="/reportes" className={styles.button}>Reportes de Lugares</Link></button>
+
 
                                 )}
 
                                 {userRole !== 'cliente' && (
 
-                                    <button  className={styles.button} ><Link to="/usuarios"  className={styles.button}>Reporte de Usuarios</Link></button>
+                                    <button className={styles.button} ><Link to="/usuarios" className={styles.button}>Reporte de Usuarios</Link></button>
 
 
                                 )}
-                                <button className={styles.button} onClick={onAddPlaceHandler}>Añadir destino</button>
-                                <Dialog title="Añadir destino" open={openAddPlaceModal} onClose={onCloseAddPlaceHandler}>
-                                    <AddPlace/>
-                                </Dialog>
-                                <button  className={styles.button} ><Link to="/historial"  className={styles.button}>Historial</Link></button>                           
-                                <button className={styles.button}><Link to="/" className={styles.button}>Inicio</Link></button>
+
+                                {userRole !== 'cliente' && (
+                                    <>
+                                        <button className={styles.button} onClick={onAddPlaceHandler}>Añadir destino</button>
+                                        <Dialog title="Añadir destino" open={openAddPlaceModal} onClose={onCloseAddPlaceHandler}>
+                                            <AddPlace />
+                                        </Dialog>
+                                    </>
+                                )}
                                 
+                                <button className={styles.button} ><Link to="/historial" className={styles.button}>Historial</Link></button>
+                                <button className={styles.button}><Link to="/" className={styles.button}>Inicio</Link></button>
+
                             </>
                         ) : (
                             <>
@@ -106,7 +112,7 @@ function Header() {
                 </div>
             </div>
         </header>
-        
+
     );
 }
 

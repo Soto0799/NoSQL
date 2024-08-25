@@ -57,7 +57,7 @@ const AddPlace = (): React.ReactElement => {
 
             if (!response.ok) {
                 const errorText = await response.text();
-                setErrorMessage(`Error: ${errorText}`);
+                window.location.reload();
                 console.log('Failed to add place', errorText);
                 return;
             }

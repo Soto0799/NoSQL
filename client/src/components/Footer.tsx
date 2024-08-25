@@ -4,7 +4,7 @@ import styles from './Footer.module.css';
 export const Footer = () => {
     return (
         <footer className={styles.footer}>
-            <p>© 2024 Tu Empresa. Todos los derechos reservados.</p>
+            <p>© 2024 Tu Viaje. Todos los derechos reservados.</p>
         </footer>
     );
 };

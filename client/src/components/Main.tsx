@@ -8,7 +8,7 @@ interface MainProps {
 }
 
 // Ubicación quemada (fija) para calcular la distancia
-const userLocation = { lat: 19.432608, lon: -99.133209 }; // Ciudad de México, por ejemplo
+const userLocation = { lat: 19.432608, lon: -99.133209 }; // Ciudad de México
 
 const Main: React.FC<MainProps> = ({ isLoggedIn }) => {
     const [lugares, setLugares] = useState<any[]>([]);
