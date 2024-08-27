@@ -101,7 +101,6 @@ function Header() {
                                     </>
                                 )}
                                 
-                                <button className={styles.button} ><Link to="/historial" className={styles.button}>Historial</Link></button>
                                 <button className={styles.button}><Link to="/" className={styles.button}>Inicio</Link></button>
 
                             </>
