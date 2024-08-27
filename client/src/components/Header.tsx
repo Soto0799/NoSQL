@@ -9,15 +9,21 @@ import { Link, useNavigate } from 'react-router-dom';
 
 
 function Header() {
+    // Estado para manejar la visibilidad del modal de inicio de sesión
     const [isLoginOpened, setIsLoginOpened] = useState(false);
+    // Estado para manejar la visibilidad del modal de registro
     const [openRegisterModal, setOpenRegisterModal] = useState(false);
+    // Estado para manejar la visibilidad del modal para añadir un lugar
     const [openAddPlaceModal, setOpenAddPlaceModal] = useState(false); // Estado para añadir un lugar
     // const [openReportModal, setOpenReportModal] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    // Estado para almacenar el rol del usuario
     const [userRole, setUserRole] = useState<string | null>(null);
+    // Hook para redireccionar a diferentes rutas
     const navigate = useNavigate();
 
 
+    // Función para manejar el inicio de sesión
     const handleLogin = (authToken: string) => {
         setToken(authToken);
         setIsLoggedIn(true);
@@ -26,6 +32,7 @@ function Header() {
         setUserRole(rol);
     };
 
+    // Hook para verificar el token al cargar el componente
     useEffect(() => {
         const token = getToken();
         if (token) {
@@ -33,24 +40,26 @@ function Header() {
             const rol = getRol();
             setUserRole(rol);
         } else {
-
+            // Si no hay token, redirige a la página de inicio
             navigate('/');
 
         }
 
     }, [navigate]);
-
+    // Función para manejar el cierre de sesión
     const handleLogout = () => {
         removeToken();
         setIsLoggedIn(false);
         setUserRole(null);
     };
 
+    // Función para abrir el modal de añadir lugar
     const onAddPlaceHandler = () => {
         console.log('Abriendo modal para añadir destino');
         setOpenAddPlaceModal(true); // Abrimos el modal para añadir lugar
     };
 
+    // Función para cerrar el modal de añadir lugar
     const onCloseAddPlaceHandler = () => {
         setOpenAddPlaceModal(false);
     };
@@ -66,7 +75,7 @@ function Header() {
                     <div className={styles.buttonContainer}>
                         {isLoggedIn ? (
                             <>
-
+                        
                                 <button className={styles.button} onClick={handleLogout}>Cerrar sesión</button>
                                 {userRole !== 'cliente' && (
 

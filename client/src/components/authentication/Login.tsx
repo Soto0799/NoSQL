@@ -4,25 +4,31 @@ import 'react-toastify/dist/ReactToastify.css';
 import styles from './Login.module.css';
 import {setRol} from '../util/storage';
 
+//Login que maneja el inicio de sesión de usuarios
 const Login = ({ onLogin, ...props }): ReactNode => {
+    //Referencia para el campo de contraseña
     const password = useRef<HTMLInputElement | null>(null);
+    // Estado para almacenar el nombre de usuario
     const [username, setUsername] = useState("");
    
+    // Función que maneja el cambio en el campo de nombre de usuario
     const onUsernameHandler = (e: ChangeEvent<HTMLInputElement>): void => {
         const input: HTMLInputElement = e.target as HTMLInputElement;
         setUsername(input.value);
     };
 
+    // Función que maneja el clic en el botón de login
     const onClickHandler = async (e: MouseEvent): Promise<void> => {
         const passwordInput: HTMLInputElement = password.current as HTMLInputElement;
         const passwordValue: string = passwordInput.value;
     
+        // Credenciales que se enviarán al servidor
         const credentials = {
             username,
             password: passwordValue
         };
     
-        try {
+        try {// Enviar solicitud POST para autenticar al usuario
             const response: Response = await fetch('http://127.0.0.1:3443/login', {
                 method: 'POST',
                 headers: {
@@ -31,6 +37,7 @@ const Login = ({ onLogin, ...props }): ReactNode => {
                 body: JSON.stringify(credentials)
             });
     
+            // Verificar si la respuesta fue exitosa
             if (!response.ok) {
                 console.log('Failed to login');
                 toast.error('Error: No se pudo iniciar sesión'); // Notificación de error

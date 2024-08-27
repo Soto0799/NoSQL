@@ -3,12 +3,15 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from './Register.module.css';
 
+// Componente de Registro que maneja el registro de nuevos usuarios
 const Usuarios = ({ ...props }): ReactNode => {
+    // Referencias para los campos del formulario
     const usernameRef = useRef<HTMLInputElement | null>(null);
     const emailRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
     const confirmPasswordRef = useRef<HTMLInputElement | null>(null);
 
+    // Estados para almacenar los valores de los campos
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -16,6 +19,7 @@ const Usuarios = ({ ...props }): ReactNode => {
     const [isRegistered, setIsRegistered] = useState(false);
     const [passwordsMatch, setPasswordsMatch] = useState(true);
 
+     // Funciones para manejar el cambio en los campos del formulario
     const onUsernameHandler = (e: ChangeEvent<HTMLInputElement>): void => {
         const input: HTMLInputElement = e.target as HTMLInputElement;
         setUsername(input.value);
@@ -36,8 +40,10 @@ const Usuarios = ({ ...props }): ReactNode => {
         setConfirmPassword(input.value);
     };
 
+    // Manejador para el clic en el botón de registro
     const onClickHandler = async (e: MouseEvent): Promise<void> => {
         try {
+            // Verificar si las contraseñas coinciden
             if (password !== confirmPassword) {
                 setPasswordsMatch(false);
                 return;
@@ -45,6 +51,7 @@ const Usuarios = ({ ...props }): ReactNode => {
 
             setPasswordsMatch(true);
 
+            // Credenciales que se enviarán al servidor
             const credentials = {
                 username,
                 email,
@@ -53,6 +60,7 @@ const Usuarios = ({ ...props }): ReactNode => {
                 rol:'cliente'
             };
 
+            // Enviar solicitud POST para registrar al usuario
             const response: Response = await fetch('http://127.0.0.1:3443/register', {
                 method: 'POST',
                 headers: {
@@ -61,6 +69,7 @@ const Usuarios = ({ ...props }): ReactNode => {
                 body: JSON.stringify(credentials)
             });
 
+            // Verificar si la respuesta fue exitosa
             if (!response.ok) {
                 console.log('Failed to register');
                 toast.error('Error: No se pudo registrar al usuario'); // Notificación de error

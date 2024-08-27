@@ -15,6 +15,7 @@ export function removeToken() {
 
 }
 
+// Almacena el rol del usuario en localStorage
 export function setRol(rol: string | undefined) {
     if (rol) {
       localStorage.setItem('userRol', rol);
@@ -23,6 +24,7 @@ export function setRol(rol: string | undefined) {
     }
   }
 
+// Recupera el rol del usuario desde localStorage
 export function getRol():string | null {
 
 return localStorage.getItem('userRol');
@@ -30,6 +32,7 @@ return localStorage.getItem('userRol');
 
 }
 
+// Elimina el rol del usuario de localStorage
 export function removeRol(){
 
 

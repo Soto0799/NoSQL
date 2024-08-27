@@ -1,4 +1,3 @@
-
 import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
@@ -8,13 +7,13 @@ import { errorHandler } from './middlewares/errorHandler.js';
 import { config } from 'dotenv';
 import { validateToken, validateCredentials, createPlace } from './middlewares/jwtHandler.js';
 
-config();
+config(); // Carga las variables de entorno desde el archivo .env
 
-const PORT = process.env.PORT || 8443;
-const app = express();
+const PORT = process.env.PORT || 8443; // Puerto que se va a usar
+const app = express(); // Crea la aplicación de Express
 
-app.use(express.json());
-app.use(cors());
+app.use(express.json());// Permite que Express comprenda JSON en las partes de body de las solicitudes
+app.use(cors());// Habilita CORS para permitir solicitudes de diferentes dominios
 app.use(bodyParser.json());
 
 app.get('/', (request, response) => {
@@ -39,6 +38,7 @@ app.use('/historial', usuariosRoute);
 // Middleware para manejar errores
 app.use(errorHandler);
 
+// Inicia el servidor y escucha en el puerto especificado
 app.listen(PORT, () => {
     console.log(`API listening on port ${PORT}`);
 });

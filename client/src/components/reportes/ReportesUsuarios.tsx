@@ -2,25 +2,32 @@ import { useEffect, useState } from "react";
 import styles from './ReportesUsuarios.module.css';
 
 const ReporteUsuarios: React.FC = () => {
+  // Estado para almacenar la lista de usuarios
   const [usuarios, setUsuarios] = useState<any[]>([]);
 
   useEffect(() => {
+    // Función asincrónica para obtener los datos de los usuarios
     const fetchUsuarios = async () => {
       try {
         const response = await fetch("http://127.0.0.1:3443/usuarios/");
 
+        // Verifica si la respuesta es correcta
         if (!response.ok) {
           throw new Error("Error al obtener los datos");
         }
 
+        // Convierte la respuesta en formato JSON
         const data = await response.json();
 
+        // Actualiza el estado con los datos obtenidos
         setUsuarios(data);
       } catch (error) {
+        // Maneja cualquier error que ocurra durante la obtención de datos
         console.log(error);
       }
     };
-
+    
+    // Llama a la función para obtener los datos de los usuarios cuando el componente se monte
     fetchUsuarios();
   }, []);
 

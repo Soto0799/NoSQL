@@ -1,6 +1,7 @@
 import React, { useState, ChangeEvent, MouseEvent } from 'react';
 
 const AddPlace = (): React.ReactElement => {
+    // Estados para almacenar los datos del lugar y mensajes
     const [id, setId] = useState('');
     const [nombre, setNombre] = useState('');
     const [distancia, setDistancia] = useState<number | string>(''); 
@@ -12,12 +13,14 @@ const AddPlace = (): React.ReactElement => {
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const [successMessage, setSuccessMessage] = useState<string | null>(null); // Nuevo estado para el mensaje de éxito
 
+    // Manejador genérico para cambios en los campos de texto
     const handleChange = (setter: React.Dispatch<React.SetStateAction<any>>) => (
         e: ChangeEvent<HTMLInputElement>
     ) => {
         setter(e.target.value);
     };
 
+    // Manejador específico para cambios en campos numéricos
     const handleNumberChange = (setter: React.Dispatch<React.SetStateAction<number | string>>) => (
         e: ChangeEvent<HTMLInputElement>
     ) => {
@@ -25,11 +28,13 @@ const AddPlace = (): React.ReactElement => {
         setter(value === '' ? '' : parseFloat(value)); 
     };
 
+    // Manejador del clic en el botón para agregar un lugar
     const onClickHandler = async (e: MouseEvent<HTMLButtonElement>): Promise<void> => {
         e.preventDefault();
         setErrorMessage(null);
         setSuccessMessage(null); // Limpiar el mensaje de éxito cuando se hace clic en agregar
 
+        // Validación de campos obligatorios
         if (id === '' || nombre === '' || distancia === '' || lat === '' || lon === '' || imagen === '') {
             setErrorMessage('Todos los campos son obligatorios.');
             return;
@@ -47,6 +52,7 @@ const AddPlace = (): React.ReactElement => {
         };
 
         try {
+            // Solicitud POST para agregar un nuevo lugar
             const response = await fetch('http://127.0.0.1:3443/places', {
                 method: 'POST',
                 headers: {
@@ -77,6 +83,7 @@ const AddPlace = (): React.ReactElement => {
     };
 
     return (
+        //Campos de entrada para los detalles del lugar
         <div>
             <form>
                 <label htmlFor="id">ID</label>
